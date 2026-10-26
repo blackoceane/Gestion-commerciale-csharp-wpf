@@ -1,46 +1,37 @@
-# DEVELOPPEMENT-D'APPLICATIONS-D'ENTREPRISE-I
+# Application de gestion commerciale (C# / WPF)
 
-## Description du projet
-Ce projet final consiste en une application de gestion commerciale complète développée en C# / WPF utilisant une architecture DataService. 
-L'objectif est de gérer le cycle de vie des commandes clients, incluant la sélection de produits, le calcul des totaux et la synchronisation avec une base de données relationnelle. Le système implémente une relation Parent/Enfant complexe entre les Commandes et les ComProds (produits commandés).
+Application de bureau qui gère tout le cycle des commandes clients : choix du client et du vendeur, ajout de produits, calcul des totaux et enregistrement dans une base de données relationnelle.
+
+## Technologies
+
+C#, .NET Framework, WPF, XAML, architecture MVVM avec un DataService, MariaDB, SQL
 
 ## Fonctionnalités
 
- ### Gestion des Commandes (CRUD)
-- **Cycles complets** : Création, modification et suppression de commandes.
-- **Auto-initialisation** : Dates automatiques et remise à zéro des totaux à l'ouverture.
-- **Nettoyage intelligent** : Suppression en cascade des produits liés lors de la destruction d'une commande.
+- Création, modification et suppression de commandes
+- Ajout de produits depuis une liste, avec récupération automatique du prix
+- Modification des quantités et des prix directement dans le tableau (DataGrid)
+- Relation parent/enfant entre les commandes et les produits commandés, synchronisée avec la base de données
+- Validation : une commande exige un client, un vendeur et au moins un produit
 
- ### Gestion des Produits (Items)
- - **Sélection dynamique** : Ajout de produits depuis une liste avec récupération automatique du prix.
- - **Édition flexible** : Ajustement direct des quantités et des prix dans le DataGrid.
- - **Suivi des retraits** : Gestion d'une liste ComProdsToDelete pour synchroniser la base de données.
+## Structure
 
-  ### Interface Utilisateur 
-  - Utilisation de ComboBox pour la sélection rigoureuse du Client et du Vendeur.
-  - DataGrid synchronisé pour l'affichage en temps réel des produits ajoutés.
-    
-## Objectifs
-- **Architecture Parent/Enfant** : Maîtriser les relations Commande ↔ ComProd.
+- `Models/` : les classes de données et `DataService.cs`, qui centralise les requêtes SQL
+- `ViewModels/` : la logique des écrans (MVVM)
+- `Views/` : les écrans en XAML
+- `Commands/` : `RelayCommand` pour relier les boutons aux ViewModels
+- `scripts/` : les scripts SQL de création de la base de données
 
-- **Pattern DataService** : Centraliser les transactions SQL.
+## Lancer le projet
 
-- **Validation** : Garantir la présence d'un client, d'un vendeur et d'au moins un produit
+1. Exécuter les scripts SQL du dossier `scripts` dans MariaDB pour créer la base de données.
+2. Vérifier la chaîne de connexion dans `App.config`.
+3. Ouvrir `L_Joyce.sln` dans Visual Studio et appuyer sur F5.
 
-## Problèmes connus & Limites
+## Limites connues
 
-- **Conception & Modélisation** : Difficultés de compréhension et d'application du MRD (Modèle Relationnel de Données) pour les relations complexes.
+- La suppression en cascade dans la base de données reste à finaliser.
+- Le calcul automatique des totaux est instable au moment de la sauvegarde.
 
-- **Base de Données** : La suppression en cascade (Cascade Delete) n'a pas été implémentée avec succès ; un nettoyage manuel ou des contraintes SQL restent à affiner.
-
-- **Logique métier** :
-
-L'exécution du calcul automatique des totaux présente des instabilités lors de la sauvegarde.
-
-Difficulté de conception technique pour la liste de sélection des produits.
-
-- **Manque** : Absence de la fonctionnalité d'historique financier du client ($ cumulé).
-
-  ---------------------------------------------------------------------------------------------
-  CONÇU LE 01 MAI 2025 - 20 MAI SO25
-   
+---
+Projet final réalisé en mai 2025 dans le cours Développement d'applications d'entreprise I, Cégep de Shawinigan.

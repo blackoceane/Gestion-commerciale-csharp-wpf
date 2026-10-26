@@ -1,0 +1,17 @@
+# Dossiers générés par Visual Studio et .NET
+.vs/
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+packages/
+
+# Fichiers personnels de Visual Studio
+*.user
+*.suo
+*.rsuser
+
+# Fichiers compilés
+*.dll
+*.exe
+*.pdb
