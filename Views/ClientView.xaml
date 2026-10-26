@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="L_Joyce.Views.ClientView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:L_Joyce.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <DataGrid x:Name="ClientDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Clients}">
+           
+        
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID Client" Binding="{Binding  Id_client}" IsReadOnly="True" Width="100"/>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="150"/>
+                <DataGridTextColumn Header="Solde (€)" Binding="{Binding Solde}" Width="100"/>
+                <DataGridTextColumn Header="HistoTotalCom" Binding="{Binding HistoTotalCom}" Width="*"/>
+                <DataGridTextColumn Header="HistoTotalExpedie" Binding="{Binding HistoTotalExpedie}" Width="*"/>
+                <DataGridTextColumn Header="Historiques factures" Binding="{Binding HistoTotalFacture}" Width="*"/>
+                <DataGridTextColumn Header="HistoTotalPaiement" Binding="{Binding HistoTotalPaiement}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+    
+
+</UserControl>

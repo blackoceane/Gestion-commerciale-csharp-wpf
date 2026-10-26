@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="L_Joyce.Views.ProduitView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:L_Joyce.Views" xmlns:viewmodels="clr-namespace:L_Joyce.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ProduitViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid  ShowGridLines="True" Grid.Column="4"  Background="#FFBFCDDB" HorizontalAlignment="Stretch" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*"  />
+            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition   Height="4*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition  Height="3*"/>
+            <RowDefinition  Height="20"/>
+        </Grid.RowDefinitions>
+        
+        
+        <StackPanel Grid.Column="0">
+            <WrapPanel   >
+                <Label Width="100" Content="Id_Produit:"/>
+                <TextBlock Text="{Binding Produit.Id_Produit}" IsEnabled="{Binding IsReadOnly}" Width="200"/>
+            </WrapPanel>
+            <WrapPanel  >
+                <Label Width="100" Content="Nom :"/>
+                <TextBox  Text="{Binding Produit.Nom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEnabled}" Width="200"/>
+            </WrapPanel>
+            <WrapPanel  >
+                <Label Width="100" Content="Qte_Stock:"/>
+                <TextBox Text="{Binding Produit.Qte_Stock}" IsEnabled="{Binding IsEnabled}" Width="200"/>
+            </WrapPanel>
+            <WrapPanel  >
+                <Label Width="100" Content="Id_Unité_Mesure:"/>
+                <TextBox Text="{Binding Produit.Id_Unité_Mesure}" IsEnabled="{Binding IsEnabled}" Width="200"/>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Width="100" Content="Id_Categorie:"/>
+                <TextBox Text="{Binding Produit.Id_Categorie}" IsEnabled="{Binding IsEnabled}" Width="70"/>
+                <ComboBox Name="CBOXprofession"   
+         ItemsSource="{Binding CategoriesViewSource}" 
+         DisplayMemberPath="Nom" 
+                
+ 
+      SelectedValue="{Binding ProduitsViewSource.CurrentItem.Id_Categorie, Mode=TwoWay}" 
+      SelectedValuePath="Id_Categorie" IsEnabled="{Binding IsEnabled}"
+ 
+        HorizontalAlignment="Left" Height="23" Margin="10,3,3,3"   VerticalAlignment="Center" Width="120"/>
+
+            </WrapPanel>
+            <WrapPanel>
+                <Label Width="100" Content="Prix:"/>
+                <TextBox Text="{Binding Produit.Prix}" IsEnabled="{Binding IsEnabled}" Width="200"/>
+            </WrapPanel>
+            
+            <WrapPanel>
+                <Button Content=""/>
+            </WrapPanel>
+
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <Button Command="{Binding AddPersonneCommand}" Content="Add"/>
+            <Button  Command="{Binding EditCommand}" Content="Edit"/>
+            <Button Command="{Binding DeletePersonneCommand}" Content="Delete"/>
+            <Button Content="SAVE" Command="{Binding SaveCommand}" IsEnabled="{Binding IsEnabled}" />
+            <Button  Command="{Binding CancelCommand}" Content="CANCEL" IsEnabled="{Binding IsEnabled}"/>
+        </StackPanel>
+        
+        
+        <StackPanel Grid.Column="2" Margin="30,10,10,5" Name="nav" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Button Name="btnFirst" Command="{Binding FirstCommand}"  Content="|◄" Style="{StaticResource NavButton}"/>
+            <Button Name="btnPrev"  Command="{Binding PreviousCommand}"  Content="◄"  Style="{StaticResource NavButton}"/>
+            <Button Name="btnNext"  Command="{Binding NextCommand}"   Content="►"  Style="{StaticResource NavButton}"/>
+            <Button Name="btnLast" Command="{Binding LastCommand}"   Content="►|" Style="{StaticResource NavButton}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2">
+            <ListBox ItemsSource="{Binding PrdList}"  Margin="10,5,10,0" MinHeight="30" SelectedItem="{Binding Produit,Mode=TwoWay}" IsSynchronizedWithCurrentItem="True" IsEnabled="{Binding IsEnabledList}" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding Id_Produit}" Margin="10,0,0,0"/>
+                            <TextBlock Text="{Binding Nom}" Margin= "10,0,0,0"/>
+                            <TextBlock Text="{Binding Qte_Stock}" Margin= "10,0,0,0"/>
+                            <TextBlock Text="{Binding Id_Unité_Mesure}"/>
+                            <TextBlock Text="{Binding Id_Categorie}" Margin= "10,0,0,0"/>
+                            <TextBlock Text="{Binding Prix}" Margin= "10,0,0,0"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            
+        </StackPanel>
+        <StackPanel
+          Grid.Column="2"  Grid.Row="2" >
+            <Button Name="AddEnfant"  Command="{Binding AddEnfant}" Margin="10,0,0,0"  Content="AddEnfant" Style="{StaticResource NavButton}" Width="122" />
+            <Button x:Name="DeleteEnfant" Command="{Binding DeleteEnfant}" Margin="10,0,0,0"   Content="DeleteEnfant"  Style="{StaticResource NavButton}" Width="147"/>
+        </StackPanel>
+        <DataGrid x:Name="ProduitCaracteristiquesGrid"
+          Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"
+          ItemsSource="{Binding Produit.ProduitCaracteristiques}"
+          AutoGenerateColumns="False"
+          Margin="5"
+          IsReadOnly="{Binding IsReadOnly}">
+       
+
+            <DataGrid.RowBackground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFDAE3E4" Offset="0.49"/>
+                    <GradientStop Color="#FFE6F0F1" Offset="0.5"/>
+                </LinearGradientBrush>
+            </DataGrid.RowBackground>
+
+            <DataGrid.Columns>
+                <!-- Id_Produit -->
+                <DataGridTextColumn Header="Id Produit"
+                            Binding="{Binding Id_Produit}" 
+                            IsReadOnly="True"/>
+
+                <!-- Id_ProduitCaracteristique -->
+                <DataGridTextColumn Header="Id ProduitCaracteristique"
+                            Binding="{Binding Id_ProduitCaracteristique}" 
+                            IsReadOnly="True"/>
+
+                <!-- Id_Caracteristique -->
+                <DataGridTextColumn Header="Id Caracteristique"
+                            Binding="{Binding Id_Caracteristique}" 
+                            IsReadOnly="True"/>
+
+                <!-- Description de la caractéristique -->
+                <DataGridTextColumn Header="Description"
+                            Binding="{Binding Caracteristique.Description}" 
+                            IsReadOnly="True"/>
+            </DataGrid.Columns>
+            
+        </DataGrid>
+    </Grid>
+</UserControl>

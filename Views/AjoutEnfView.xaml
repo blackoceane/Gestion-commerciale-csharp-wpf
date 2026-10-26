@@ -1,0 +1,50 @@
+﻿
+<Window x:Class="L_Joyce.Views.AjoutEnfView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:L_Joyce.Views"
+        xmlns:viewmodels="clr-namespace:L_Joyce.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewmodels:AjoutEnfViewModel}"
+        mc:Ignorable="d"
+        Title="AjoutEnfView" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Produits de la commande">
+                <StackPanel>
+                    <ListBox
+                        ItemsSource="{Binding PrdList}"
+                      
+                           
+
+                        Margin="10,5,10,0"
+                             MinHeight="30"
+                             SelectedItem="{Binding ProduitSelectionne, Mode=TwoWay}"
+                             IsSynchronizedWithCurrentItem="True"
+                             >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <TextBlock Text="{Binding Id_Produit}" Margin="10,0,0,0"/>
+                                    <TextBlock Text="{Binding Nom}" Margin="10,0,0,0"/>
+                                    <TextBlock Text="{Binding Qte_Stock}" Margin="10,0,0,0"/>
+                                    <TextBlock Text="{Binding Id_Unité_Mesure}" Margin="10,0,0,0"/>
+                                    <TextBlock Text="{Binding Id_Categorie}" Margin="10,0,0,0"/>
+                                    <TextBlock  Text="{Binding Path=Prix, StringFormat='{}{0:C}'}" Margin="10,0,0,0"/>
+                                   
+
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Button Content="Ajouter Produit" Command="{Binding AddProduitCommand}" />
+                        <Button Content="Annuler" Command="{Binding CancelCommand}" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
